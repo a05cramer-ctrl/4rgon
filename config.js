@@ -1,1 +1,1 @@
-window.ARGON_CFG={NAME:"4rgon",TICKER:"4RGON",CA:"",CHAIN:"solana",PAD:"pumpfun",PAIR:"",X:"",BUY:"",CHART:""};
+window.ARGON_CFG={NAME:"4rgon",TICKER:"4RGON",CA:"5zMU4g8bpUQojmtfhqGU2kAKkax118JCfLd2C6nTpump",CHAIN:"solana",PAD:"pumpfun",PAIR:"",X:"https://x.com/get4rgon",BUY:"https://pump.fun/coin/5zMU4g8bpUQojmtfhqGU2kAKkax118JCfLd2C6nTpump",CHART:"https://dexscreener.com/solana/5zMU4g8bpUQojmtfhqGU2kAKkax118JCfLd2C6nTpump"};
