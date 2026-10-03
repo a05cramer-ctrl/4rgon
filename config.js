@@ -1,0 +1,1 @@
+window.ARGON_CFG={NAME:"4rgon",TICKER:"4RGON",CA:"",CHAIN:"solana",PAD:"pumpfun",PAIR:"",X:"",BUY:"",CHART:""};

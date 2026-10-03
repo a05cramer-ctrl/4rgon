@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4rgon — the argon anyone can use</title>
+<meta name="description" content="4rgon ($4RGON): one open agent, no access list. anyone can talk to it, no wallet, no login. compute paid by the token's creator fee. goes dark at zero budget, wakes when the token trades again.">
+<meta property="og:title" content="4rgon — the argon anyone can use">
+<meta property="og:description" content="one agent. no access list. compute paid by creator fee. goes dark at zero, wakes when the token trades again.">
+<link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAADAFBMVEUFBAUMCRIYECgsGlBGKIJkPL6PXP++oP/p3P/o4c++tKV4bmQ8NDLBEh/hHSp4ChQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACaRWa0AAABnUlEQVR42k2Ti67EIAhEAbWbVJPL/3/tPYN9me5KcWBkoJbPMvOI1iLc7OP9HLdx1BotXshtcHz8jtFZA6M9We7Nu7wiaE3YfiPsOe/unUCPJus3wl9AnVv0Drd77QqwF9B+AxDJM90hIsf4tSKpn48jEn4BLByjZRzDH0BA4D1YxGsL8ndS3IB+tFRaaZQpXMdB1AaIwWHgfhlrRnoYHL459FgvBkqc8+9vTtXa5X0BIwNAzvMPwDnJ0SMJuwFQUEPGPEGcJyzS86GoS4phrTWJZxNHO/pTBTrRQKToOWeOZkrxLdPHCHy0gWuWINQ6XqFSKloukt8P4iFFfgDqwuQGZieb3toHgPp7LK7wWtWZCwBnGb5O1vLt31Eb4HRZ+y5TB5L9BYCwkCgRa8XCoh0enztUoysFK4oU3z1RphrUaSBUsCS+pKCOklqyu2IMYTQSqblUofqKoNUgRNG6XwXW3Mgb6kCJfFV73WjXaRpAPg+8SmuXHpcqxUf1hpXXS+7/ItKRLBMidX2BMOVW9tdfU2XbMAlqBSl0CvAPK8ce6ugsTjUAAAAASUVORK5CYII=">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<style>
+/* fallback faces sized to roughly match the pixel fonts' metrics, so layout holds if Google Fonts never arrives */
+@font-face{font-family:"PxFallback";src:local("DejaVu Sans Mono"),local("Menlo"),local("Consolas"),local("Liberation Mono"),local("Courier New");size-adjust:72%}
+@font-face{font-family:"PsFallback";src:local("DejaVu Sans Mono Bold"),local("DejaVu Sans Mono"),local("Menlo"),local("Consolas"),local("Liberation Mono"),local("Courier New");size-adjust:150%;font-weight:700}
+:root{--bg:#050405;--bg2:#0a0809;--panel:#0f0c0e;--panel2:#0a0809;--fg:#e8e1cf;--bone:#e8e1cf;--hot:#fff8e8;--mid:#aba28f;--dim:#847b6e;--line:#2b2426;--line2:#4a3f43;--red:#c1121f;--red2:#e11d2a;--vi:#8f5cff;--shadow:#1a1416;
+--mono:"VT323","PxFallback",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;--disp:"Press Start 2P","PsFallback",ui-monospace,"Courier New",monospace;
+--chk:repeating-conic-gradient(var(--panel) 0 25%,var(--panel2) 0 50%) 0 0/4px 4px;
+--pfp:url("data:image/png;base64,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")}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{overflow-x:clip}
+html{background:var(--bg);-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.3 var(--mono);min-height:100vh;image-rendering:pixelated}
+/* scanlines + noise, above content, non-interactive */
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:6;background:repeating-linear-gradient(0deg,rgba(0,0,0,.16) 0 1px,transparent 1px 3px)}
+body::after{content:"";position:fixed;inset:-50%;pointer-events:none;z-index:5;opacity:.05;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E") 0 0/120px 120px;image-rendering:pixelated}
+a{color:inherit;text-decoration:none}
+a:hover{color:var(--red2)}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;border-radius:0}
+:focus-visible{outline:2px solid var(--red2);outline-offset:2px;border-radius:0}
+::selection{background:var(--red);color:var(--hot)}
+.disp{font-family:var(--disp);font-weight:400;letter-spacing:0}
+.wrap{position:relative;z-index:1;width:min(100% - 32px,1280px);margin:0 auto}
+.lbl{font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+.tag{display:inline-block;font-family:var(--disp);font-size:8px;letter-spacing:0;text-transform:uppercase;color:var(--red2);border:2px solid var(--red);padding:4px 6px 3px;background:var(--bg);box-shadow:2px 2px 0 var(--red)}
+.hot{color:var(--hot)}.vi{color:var(--vi)}.mid{color:var(--mid)}
+.is-off{opacity:.35;cursor:not-allowed;pointer-events:none}
+/* pixel-rounded corners (stepped) */
+.notch{clip-path:polygon(4px 0,calc(100% - 4px) 0,100% 4px,100% calc(100% - 4px),calc(100% - 4px) 100%,4px 100%,0 calc(100% - 4px),0 4px)}
+
+/* top bar */
+.bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0;border-bottom:4px double var(--line2)}
+.brand{display:flex;align-items:baseline;gap:12px;min-width:0}
+.brand .wm{position:relative;font-size:16px;line-height:1;color:var(--bone);text-shadow:3px 3px 0 var(--red);animation:glitch 7s steps(1) infinite}
+.brand .tk{color:var(--mid);font-size:16px}
+.bar-r{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+.pill{display:inline-flex;align-items:center;gap:8px;border:2px solid var(--line2);padding:4px 10px;font-size:15px;line-height:1.2;color:var(--mid);background:var(--bg2);box-shadow:3px 3px 0 var(--shadow)}
+.pill .dot{width:8px;height:8px;background:var(--red2);box-shadow:0 0 0 2px var(--bg),0 0 0 3px var(--red);animation:blink 1.6s steps(1) infinite}
+.pill[aria-pressed="true"]{border-color:var(--red2);color:var(--hot);background:var(--red);box-shadow:3px 3px 0 var(--shadow)}
+button.pill:hover{border-color:var(--bone);color:var(--hot)}
+button.pill:active{transform:translate(3px,3px);box-shadow:none}
+@keyframes blink{0%,70%{opacity:1}71%,100%{opacity:.25}}
+@keyframes glitch{0%,95%,100%{transform:none;text-shadow:3px 3px 0 var(--red);clip-path:none}
+ 96%{transform:translate(-3px,0);text-shadow:3px 0 0 var(--red),-3px 0 0 var(--bone);clip-path:inset(0 0 55% 0)}
+ 97%{transform:translate(3px,1px);text-shadow:-3px 0 0 var(--red);clip-path:inset(45% 0 0 0)}
+ 98%{transform:translate(0,-2px);text-shadow:3px 3px 0 var(--red);clip-path:none}}
+
+/* instrument */
+.inst{display:grid;grid-template-columns:1fr;gap:10px;margin-top:20px}
+@media(min-width:960px){.inst{grid-template-columns:250px minmax(0,1fr) 380px;min-height:560px}}
+.pnl{background:var(--chk);border:2px solid var(--line2);padding:16px;min-width:0;position:relative;box-shadow:4px 4px 0 var(--shadow)}
+.pnl-h{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px;padding-bottom:10px;border-bottom:2px dashed var(--line2)}
+.pnl-h .lbl{color:var(--mid)}
+/* stage */
+.stage{background:var(--bg2);border-color:var(--bone);box-shadow:4px 4px 0 var(--red);display:flex;flex-direction:column;cursor:pointer;order:-1;padding:0}
+.stage::before{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-conic-gradient(rgba(143,92,255,.045) 0 25%,transparent 0 50%) 0 0/8px 8px}
+@media(min-width:960px){.stage{order:0}}
+.stage-top{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:12px 16px 0;pointer-events:none}
+.hero{padding:18px 16px 0;pointer-events:none;display:flex;flex-direction:column;gap:14px;align-items:flex-start}
+@media(min-width:600px){.hero{flex-direction:row;align-items:flex-start;gap:20px}}
+.hero-txt{min-width:0;flex:1 1 auto}
+.pfp{position:relative;flex:0 0 auto;width:64px;height:64px;background:var(--pfp) center/100% 100% no-repeat;image-rendering:pixelated;border:2px solid var(--bone);box-shadow:4px 4px 0 var(--red);background-color:var(--bg)}
+@media(min-width:600px){.pfp{width:96px;height:96px}}
+@media(min-width:960px){.pfp{width:112px;height:112px}}
+.pfp .eye{position:absolute;left:44%;top:33%;width:12%;height:9%;background:var(--red2);opacity:0;animation:eye 9s steps(1) infinite;mix-blend-mode:screen}
+@keyframes eye{0%,91%,100%{opacity:0}92%,94%{opacity:.85}93%{opacity:0}}
+.hero h1{margin:0;font-size:clamp(16px,4.6vw,24px);line-height:1.35;color:var(--bone);text-shadow:3px 3px 0 var(--red)}
+@media(min-width:960px){.hero h1{font-size:24px;text-shadow:4px 4px 0 var(--red)}}
+.hero h1 small{display:block;font:16px/1.3 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--red2);text-shadow:none;margin-top:12px}
+.hero p{margin:10px 0 0;max-width:520px;color:var(--mid)}
+.cv{flex:1;min-height:260px;position:relative}
+@media(min-width:960px){.cv{min-height:300px}}
+#tube{display:block;width:100%;height:100%;position:absolute;inset:0;image-rendering:pixelated;image-rendering:crisp-edges}
+.ctl{display:flex;align-items:center;gap:12px;padding:0 16px 14px;flex-wrap:wrap;pointer-events:none}
+.ctl>*{pointer-events:auto}
+.ctl label{font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+.ctl output{font-size:16px;color:var(--mid);min-width:66px}
+input[type=range]{-webkit-appearance:none;appearance:none;width:min(220px,50vw);height:22px;background:transparent;cursor:ew-resize}
+input[type=range]::-webkit-slider-runnable-track{height:4px;background:repeating-linear-gradient(90deg,var(--line2) 0 4px,var(--bg) 4px 6px)}
+input[type=range]::-moz-range-track{height:4px;background:var(--line2)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;height:20px;margin-top:-8px;background:var(--bone);border:2px solid var(--red);border-radius:0;box-shadow:2px 2px 0 var(--red)}
+input[type=range]::-moz-range-thumb{width:12px;height:20px;background:var(--bone);border:2px solid var(--red);border-radius:0}
+.hint{font-size:15px;color:var(--dim);margin-left:auto}
+
+/* access panel */
+.big{font-size:32px;line-height:1;color:var(--bone);margin:10px 0 6px;text-shadow:3px 3px 0 var(--red)}
+.door{color:var(--mid);margin:14px 0 0;padding-top:12px;border-top:2px dashed var(--line2)}
+.door b{color:var(--red2);font-weight:400}
+.meter{margin-top:18px}
+.meter .row{display:flex;justify-content:space-between;font-size:15px;color:var(--mid);margin-bottom:6px}
+.track{height:10px;background:var(--bg);border:2px solid var(--line2);overflow:hidden;padding:1px}
+.track i{display:block;height:100%;background:repeating-linear-gradient(90deg,var(--red2) 0 4px,var(--red) 4px 6px);transition:width .3s steps(6)}
+.kv{margin:16px 0 0;padding:0;list-style:none;font-size:16px}
+.kv li{display:flex;justify-content:space-between;gap:8px;padding:5px 0;border-bottom:1px solid var(--line)}
+.kv li span:last-child{color:var(--mid);text-align:right}
+
+/* chat */
+.term{display:flex;flex-direction:column;min-height:420px}
+@media(min-width:960px){.term{min-height:0}}
+#log{flex:1;overflow-y:auto;min-height:220px;max-height:46vh;font-size:17px;line-height:1.3;scrollbar-width:thin;scrollbar-color:var(--line2) transparent;padding-right:4px}
+@media(min-width:960px){#log{max-height:none;height:0}}
+.ln{display:grid;grid-template-columns:22px minmax(0,1fr);gap:8px;margin:0 0 10px;word-break:break-word;overflow-wrap:anywhere}
+.ln .who{color:var(--dim);font-size:16px;padding-top:1px}
+.ln.ar .who{color:transparent;width:22px;height:22px;background:var(--pfp) center/100% 100% no-repeat;image-rendering:pixelated;border:1px solid var(--line2);overflow:hidden;user-select:none}
+.ln.me .tx{color:var(--fg)}
+.ln.ar .tx{color:var(--hot)}
+.tx.typing::after{content:"▌";color:var(--red2);animation:bl .8s steps(1) infinite;margin-left:1px}
+@keyframes bl{50%{opacity:0}}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 10px}
+.chip{font-size:15px;line-height:1.2;color:var(--mid);border:2px solid var(--line2);padding:3px 8px;background:var(--bg);box-shadow:2px 2px 0 var(--shadow)}
+.chip:hover{color:var(--hot);border-color:var(--red2);box-shadow:2px 2px 0 var(--red)}
+.chip:active{transform:translate(2px,2px);box-shadow:none}
+#chat{display:flex;gap:0;border:2px solid var(--bone);background:var(--bg);box-shadow:3px 3px 0 var(--shadow)}
+#chat:focus-within{border-color:var(--red2);box-shadow:3px 3px 0 var(--red)}
+#chat .pr{color:var(--red2);padding:8px 0 8px 12px;user-select:none}
+#q{flex:1;min-width:0;background:none;border:0;color:var(--hot);font:inherit;padding:8px 8px;outline:none;border-radius:0}
+#q::placeholder{color:var(--dim)}
+#send{color:var(--mid);padding:0 12px;border-left:2px solid var(--line2);font-size:15px;letter-spacing:.1em;text-transform:uppercase}
+#send:hover{color:var(--hot);background:var(--red)}
+.term .foot{display:flex;justify-content:space-between;gap:8px;margin-top:8px;font-size:14px;color:var(--dim)}
+
+/* sections */
+section{padding:64px 0 0}
+.sec-h{display:flex;align-items:baseline;gap:14px;margin-bottom:22px}
+.sec-h h2{margin:0;font-size:16px;color:var(--bone);line-height:1.3;text-shadow:3px 3px 0 var(--red)}
+@media(min-width:720px){.sec-h h2{font-size:24px}}
+.sec-h .n{color:var(--red2);font-family:var(--disp);font-size:8px}
+.steps{display:grid;gap:10px;grid-template-columns:1fr}
+@media(min-width:720px){.steps{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1100px){.steps{grid-template-columns:repeat(4,1fr)}}
+.step{background:var(--chk);border:2px solid var(--line2);box-shadow:4px 4px 0 var(--shadow);padding:20px 18px 22px;min-width:0}
+.step .k{font-family:var(--disp);font-size:24px;color:var(--bone);line-height:1;text-shadow:3px 3px 0 var(--red)}
+.step h3{margin:16px 0 6px;font:17px/1.3 var(--mono);letter-spacing:.04em;text-transform:uppercase;color:var(--hot)}
+.step p{margin:0;color:var(--mid);font-size:16px}
+table{width:100%;border-collapse:collapse;border:2px solid var(--line2);background:var(--chk);font-size:16px;box-shadow:4px 4px 0 var(--shadow)}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:400;color:var(--dim);font-size:14px;letter-spacing:.1em;text-transform:uppercase;border-bottom:2px solid var(--line2)}
+td:first-child{color:var(--hot);white-space:nowrap}
+td:nth-child(2){color:var(--mid)}
+td:last-child{color:var(--red2);white-space:nowrap;font-size:15px}
+tr:last-child td{border-bottom:0}
+@media(max-width:600px){td:first-child,td:last-child{white-space:normal}th:last-child,td:last-child{display:none}}
+.note{margin-top:14px;font-size:16px;color:var(--dim)}
+
+/* egg */
+.egg-wrap{display:flex;gap:28px;align-items:center;flex-wrap:wrap}
+.cell{width:170px;height:190px;border:2px solid var(--bone);background:var(--chk);box-shadow:4px 4px 0 var(--red),inset 0 0 0 2px var(--bg);display:flex;flex-direction:column;justify-content:space-between;padding:12px 14px;flex:0 0 auto}
+.cell .z{font-family:var(--disp);font-size:8px;color:var(--red2)}
+.cell .sym{font-family:var(--disp);font-size:40px;line-height:1;color:var(--vi);text-shadow:3px 3px 0 var(--bone)}
+.cell .nm{font-size:17px;color:var(--fg)}
+.cell .m{font-size:15px;color:var(--dim)}
+.egg-txt{flex:1 1 260px;color:var(--mid);min-width:0}
+.egg-txt p{margin:0 0 8px}
+.ghost{border:2px solid var(--line2);padding:4px 12px;color:var(--mid);font-size:15px;line-height:1.2;background:var(--bg);box-shadow:2px 2px 0 var(--shadow)}
+.ghost:hover{border-color:var(--red2);color:var(--hot);box-shadow:2px 2px 0 var(--red)}
+.ghost:active{transform:translate(2px,2px);box-shadow:none}
+
+/* footer */
+footer{margin-top:64px;border-top:4px double var(--line2);padding:26px 0 40px}
+.fgrid{display:grid;gap:16px;grid-template-columns:1fr}
+@media(min-width:800px){.fgrid{grid-template-columns:minmax(0,1fr) auto;align-items:center}}
+.ca{display:flex;align-items:center;gap:0;border:2px solid var(--line2);background:var(--bg2);min-width:0;max-width:640px;box-shadow:3px 3px 0 var(--shadow)}
+.ca .lbl{padding:0 12px;border-right:2px solid var(--line2);flex:0 0 auto;line-height:38px}
+#ca-text{flex:1;min-width:0;padding:0 12px;font-size:16px;color:var(--hot);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;line-height:38px}
+#ca-copy{border-left:2px solid var(--line2);padding:0 12px;line-height:38px;font-size:15px;color:var(--mid)}
+#ca-copy:hover{color:var(--hot);background:var(--red)}
+.links{display:flex;gap:10px;flex-wrap:wrap}
+.lk{display:inline-block;border:2px solid var(--line2);padding:8px 16px;font-size:16px;line-height:1.2;color:var(--fg);background:var(--bg2);box-shadow:3px 3px 0 var(--shadow)}
+.lk:hover{border-color:var(--red2);color:var(--hot);box-shadow:3px 3px 0 var(--red)}
+.lk:active{transform:translate(3px,3px);box-shadow:none}
+.lk.go{border-color:var(--bone);color:var(--hot);background:var(--red);box-shadow:3px 3px 0 var(--shadow)}
+.lk.go:hover{background:var(--red2);border-color:var(--hot)}
+.fine{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:22px;font-size:15px;color:var(--dim)}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.tx.typing::after{animation:none}.track i{transition:none}.brand .wm,.pill .dot,.pfp .eye{animation:none}.pfp .eye{opacity:0}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="bar">
+  <div class="brand">
+    <span class="wm disp">4rgon</span>
+    <span class="tk" data-ticker>$4RGON</span>
+  </div>
+  <div class="bar-r">
+    <span class="pill" aria-live="polite"><span class="dot" aria-hidden="true"></span>tube: <span id="status">striking</span></span>
+    <button class="pill" id="snd" type="button" aria-pressed="false"><span>sound off</span></button>
+  </div>
+</header>
+
+<main>
+<div class="inst" id="instrument">
+  <aside class="pnl" aria-labelledby="acc-h">
+    <div class="pnl-h"><span class="lbl" id="acc-h">access list</span><span class="tag">demonstration</span></div>
+    <div class="lbl">trusted defenders</div>
+    <div class="big disp">0</div>
+    <p class="door"><b>you are not on the list.</b><br>nobody is.</p>
+    <div class="meter">
+      <div class="row"><span>fair-use slice · this visitor</span><span id="fair-txt">12 / 12</span></div>
+      <div class="track" role="progressbar" aria-label="fair-use slice (demo)" aria-valuemin="0" aria-valuemax="12" aria-valuenow="12"><i id="fair-bar" style="width:100%"></i></div>
+    </div>
+    <ul class="kv">
+      <li><span>agents</span><span>1</span></li>
+      <li><span>wallet required</span><span>no</span></li>
+      <li><span>login required</span><span>no</span></li>
+      <li><span>compute budget</span><span>— (not wired)</span></li>
+      <li><span>paid by</span><span>creator fee</span></li>
+    </ul>
+  </aside>
+
+  <div class="pnl stage" id="stage" role="button" tabindex="0" aria-label="argon discharge tube. click or press enter to make it surge.">
+    <div class="stage-top"><span class="lbl">discharge tube · Ar 18</span><span class="tag">demonstration</span></div>
+    <div class="hero">
+      <div class="pfp" role="img" aria-label="4rgon: a pixel skull in a hood with a violet halo and a red third eye"><i class="eye" aria-hidden="true"></i></div>
+      <div class="hero-txt">
+        <h1 class="disp">the argon<br>anyone can use<small>one agent · no access list · no wallet · no login</small></h1>
+        <p>on oct 1 2026 a lab unveiled an "argon" model for trusted cyber defenders only. this is the other kind: one open agent, lit by the token's creator fee, dark when the budget hits zero, awake again when the token trades.</p>
+      </div>
+    </div>
+    <div class="cv"><canvas id="tube" aria-hidden="true"></canvas></div>
+    <div class="ctl">
+      <label for="pressure">pressure</label>
+      <input type="range" id="pressure" min="0" max="100" value="55" aria-label="gas pressure (changes the glow, demo)">
+      <output id="pressure-out" for="pressure">4.5 torr</output>
+      <span class="hint">click the tube to surge</span>
+    </div>
+  </div>
+
+  <section class="pnl term" aria-labelledby="chat-h" style="padding-top:16px">
+    <div class="pnl-h"><span class="lbl" id="chat-h">terminal</span><span class="tag">demonstration</span></div>
+    <div id="log" role="log" aria-live="polite" aria-label="chat with 4rgon (demo)"></div>
+    <div class="chips" aria-label="suggested questions">
+      <button class="chip" type="button">who are you</button>
+      <button class="chip" type="button">are you google</button>
+      <button class="chip" type="button">am i on the list</button>
+      <button class="chip" type="button">what happens at zero</button>
+      <button class="chip" type="button">wen moon</button>
+    </div>
+    <form id="chat" autocomplete="off">
+      <span class="pr" aria-hidden="true">&gt;</span>
+      <input id="q" type="text" placeholder="ask 4rgon anything" aria-label="ask 4rgon anything (demo)" maxlength="240">
+      <button id="send" type="submit">send</button>
+    </form>
+    <div class="foot"><span>replies: local rule engine, no network, no model api</span><span>the real agent is not built yet</span></div>
+  </section>
+</div>
+
+<section id="how" aria-labelledby="how-h">
+  <div class="sec-h"><span class="n">01</span><h2 class="disp" id="how-h">how it works</h2></div>
+  <div class="steps">
+    <div class="step"><div class="k">1</div><h3>one agent</h3><p>a single 4rgon instance. no fleet, no tiers, no priority lane. the same tube for everyone.</p></div>
+    <div class="step"><div class="k">2</div><h3>no access list</h3><p>open the site, type. no wallet, no login, no application form. a fair-use limit per visitor is the only gate.</p></div>
+    <div class="step"><div class="k">3</div><h3>fee pays compute</h3><p>every trade of <span data-ticker>$4RGON</span> produces a creator fee. that fee is the only thing that buys the agent's compute. published rule.</p></div>
+    <div class="step"><div class="k">4</div><h3>dark at zero</h3><p>budget hits zero, agent goes dark. the token trades again, the fee tops the budget up, the gas strikes and it wakes.</p></div>
+  </div>
+</section>
+
+<section id="rules" aria-labelledby="rules-h">
+  <div class="sec-h"><span class="n">02</span><h2 class="disp" id="rules-h">rules</h2></div>
+  <table>
+    <thead><tr><th>rule</th><th>what it means</th><th>status</th></tr></thead>
+    <tbody>
+      <tr><td>one agent</td><td>exactly one 4rgon. no private instances, no premium copy.</td><td>published</td></tr>
+      <tr><td>no access list</td><td>anyone can talk to it from this site. no wallet, no login, no approval.</td><td>published</td></tr>
+      <tr><td>compute paid by creator fee</td><td>the token's creator fee funds the agent's compute. nothing else does.</td><td>published rule</td></tr>
+      <tr><td>goes dark at zero budget</td><td>when the budget is spent the agent stops. no overdraft.</td><td>published</td></tr>
+      <tr><td>wakes when the token trades again</td><td>new trades refill the budget; the agent comes back on its own.</td><td>published</td></tr>
+      <tr><td>fair-use limit per visitor</td><td>a per-visitor slice so one person cannot drain the budget for everyone.</td><td>published</td></tr>
+      <tr><td>nothing here predicts price</td><td>no targets, no returns, no forecasts. the agent deflects those questions.</td><td>published</td></tr>
+    </tbody>
+  </table>
+  <p class="note">status of the backend: not built yet. every interactive element on this page is a demonstration. live numbers show "—" until they are real.</p>
+</section>
+
+<section id="egg-sec" aria-labelledby="egg-h">
+  <div class="sec-h"><span class="n">03</span><h2 class="disp" id="egg-h">Ar 18</h2></div>
+  <div id="egg" hidden>
+    <div class="egg-wrap">
+      <div class="cell" aria-label="periodic table cell: argon, atomic number 18">
+        <div class="z">18</div>
+        <div class="sym">Ar</div>
+        <div><div class="nm">argon</div><div class="m">noble gas · 39.95</div></div>
+      </div>
+      <div class="egg-txt">
+        <p class="hot">you typed it. here is the cell.</p>
+        <p>argon: symbol Ar, atomic number 18. a noble gas, so it barely reacts with anything. run a current through it at low pressure and it glows lilac-violet, the colour of the tube above.</p>
+        <p>the name is from the greek for "idle". a lazy gas that lights up when you give it power. fitting.</p>
+        <button class="ghost" id="egg-close" type="button">close</button>
+      </div>
+    </div>
+  </div>
+  <p class="note">type <span class="hot">argon</span> anywhere on the page. or <button class="ghost" id="egg-open" type="button">open it</button>.</p>
+</section>
+</main>
+
+<footer>
+  <div class="fgrid">
+    <div class="ca"><span class="lbl">ca</span><span id="ca-text">soon</span><button id="ca-copy" type="button" hidden>copy</button></div>
+    <div class="links">
+      <a class="lk go" id="lk-buy" href="#" target="_blank" rel="noopener">buy on pump.fun</a>
+      <a class="lk" id="lk-chart" href="#" target="_blank" rel="noopener">chart</a>
+      <a class="lk" id="lk-x" href="#" target="_blank" rel="noopener">x</a>
+    </div>
+  </div>
+  <div class="fine">
+    <span>4rgon <span data-ticker>$4RGON</span> · solana · pump.fun · <span id="yr">2026</span></span>
+    <span>named after the noble gas. not affiliated with any lab.</span>
+  </div>
+</footer>
+</div>
+<script src="config.js"></script>
+<script>(function(){"use strict";var I=window.ARGON_CFG||{},g=function(t,a){return(a||document).querySelector(t)},be=function(t,a){return Array.prototype.slice.call((a||document).querySelectorAll(t))},w=!1;try{w=matchMedia("(prefers-reduced-motion: reduce)").matches}catch(t){}var z=function(t,a,r){return t<a?a:t>r?r:t},d=Math.random,o={bright:w?1:0,target:1,energy:0,thinking:0,pressure:.55,warm:w?1:0,flick:0,visible:!0,onscreen:!0,t:0};(function(){var a=(I.CA||"").trim(),r=g("#ca-text"),n=g("#ca-copy"),e=g("#lk-buy"),i=g("#lk-chart"),s=g("#lk-x");function m(f){f.classList.add("is-off"),f.setAttribute("aria-disabled","true"),f.removeAttribute("href"),f.tabIndex=-1}a?(r.textContent=a,n.hidden=!1,n.addEventListener("click",function(){var f=function(){n.textContent="copied",setTimeout(function(){n.textContent="copy"},1400)};try{navigator.clipboard.writeText(a).then(f,f)}catch(u){f()}}),e.href=I.BUY||"https://pump.fun/coin/"+a,i.href=I.CHART||"https://gmgn.ai/sol/token/"+a):(r.textContent="soon",n.hidden=!0,m(e),m(i)),I.X?s.href=I.X:m(s),be("[data-ticker]").forEach(function(f){f.textContent="$"+(I.TICKER||"4RGON")})})();var P=g("#tube"),E=P.getContext("2d"),X=document.createElement("canvas"),we=X.getContext("2d"),S=0,D=0,N=1,k=4,b=0,M=0,Z=null,x=null,ee=[];function tt(){ee=[];for(var t=0;t<7;t++)ee.push({y:(d()-.5)*.9,ph:d()*6.28,sp:.4+d()*.9,amp:.25+d()*.55,w:.6+d()*1.1,f:1.5+d()*3})}tt();function te(){var t=P.getBoundingClientRect();t.width&&(N=Math.min(2,window.devicePixelRatio||1),S=Math.round(t.width),D=Math.round(t.height),P.width=Math.round(S*N),P.height=Math.round(D*N),E.setTransform(N,0,0,N,0,0),k=S<600?3:4,b=Math.ceil(S/k),M=Math.ceil(D/k),X.width=b,X.height=M,Z=we.createImageData(b,M),x=Z.data)}te(),window.addEventListener("resize",te);var at=[5,4,5],ke=[[13,9,24],[30,18,60],[56,34,116],[86,54,178]],_=[[40,24,86],[70,44,146],[106,70,206],[143,92,255],[186,152,255],[233,220,255]],nt=[16,12,20],Ot=[58,50,68],ae=[92,82,100],ot=[38,34,42],ne=[110,102,116],Me=[52,48,56],rt=[22,18,24],it=[225,29,42],Ft=[232,225,207],st=[[0,8,2,10],[12,4,14,6],[3,11,1,9],[15,7,13,5]];function H(t,a,r,n){var e=Math.floor(t*a+(st[n&3][r&3]+.5)/16);return e<0?0:e>a?a:e}function p(t,a,r){if(!(t<0||a<0||t>=b||a>=M)){var n=(a*b+t)*4;x[n]=r[0],x[n+1]=r[1],x[n+2]=r[2],x[n+3]=255}}function xe(t,a,r){if(!(t<0||a<0||t>=b||a>=M)){var n=(a*b+t)*4;x[n]=Math.min(255,x[n]+r[0]),x[n+1]=Math.min(255,x[n+1]+r[1]),x[n+2]=Math.min(255,x[n+2]+r[2])}}var c={};function C(t,a){if(t<c.tx||t>=c.tx+c.tw||a<c.ty||a>=c.ty+c.th)return!1;var r=t<c.tx+2?c.tx+2-t:t>=c.tx+c.tw-2?t-(c.tx+c.tw-3):0,n=a<c.ty+2?c.ty+2-a:a>=c.ty+c.th-2?a-(c.ty+c.th-3):0;return!(r>0&&n>0&&r+n>2)}function ht(t,a,r,n,e){for(var i=0;i<n;i++)for(var s=0;s<r;s++)p(t+s,a+i,e)}function Ce(t){if(!((!S||!D)&&(te(),!S))){var a=z(o.bright,0,1),r=o.pressure,n=Math.max(0,a),e,i,s,m,f=Math.min(b*.1,64/k),u=z(Math.round(M*.22),7,Math.round(74/k));u%2&&(u+=1);var l=Math.round(f),y=b-l*2,v=Math.round(M/2-u/2),pt=b/2,A=v+u/2;c.tx=l,c.ty=v,c.tw=y,c.th=u;var ue=Math.max(y*.75,4)*(.7+r*.5)*(1+o.energy*.25),yt=Math.min(.62,M*.5/ue),bt=1/ue,wt=1/(ue*yt);for(i=0;i<M;i++){var De=(i+.5-A)*wt;for(e=0;e<b;e++){var Ne=(e+.5-pt)*bt,ce=Math.sqrt(Ne*Ne+De*De),He=at;if(ce<1&&n>.01){var kt=n*(1-ce)*(1-ce)*.95,je=H(kt,4,e,i);je>0&&(He=ke[je-1])}p(e,i,He)}}var Mt=Math.round(A+u*1.6);for(e=l-5;e<l+y+5;e++)p(e,Mt,rt);var O=Math.max(4,Math.round(u*.55)),$e=l-Math.round(O*.6),We=l+y-Math.round(O*.4);for(e=0;e<$e;e++)p(e,Math.round(A),Me);for(e=We+O;e<b;e++)p(e,Math.round(A),Me);var J=[Math.min(255,ne[0]+n*50),Math.min(255,ne[1]+n*40),Math.min(255,ne[2]+n*70)];[$e,We].forEach(function(F){for(ht(F,v-1,O,u+2,ot),i=v-1;i<v+u+1;i++)p(F,i,J),p(F+O-1,i,J);for(s=0;s<O;s++)p(F+s,v-1,J),p(F+s,v+u,J);for(i=v+1;i<v+u-1;i+=2)p(F+1,i,[60,56,66])});var xt=.55*n+.25*n*r,Ct=u/2,At=w?0:.35+o.thinking*1.4+o.energy*2.2,Xe=r<.45?6+Math.round((.45-r)*30):0,Et=r<.45?(.45-r)*2.2*n:0;for(i=v;i<v+u;i++){var de=1-Math.abs((i+.5-A)/Ct);for(de=Math.pow(Math.max(0,de),.7),e=l;e<l+y;e++)if(C(e,i)){var fe=nt;if(n>.005){var _e=(e-l)/y,Tt=Math.min(1,Math.min(_e,1-_e)*9),Lt=xt*(.35+.65*de)*Tt*1.15,Ye=H(Lt,5,e,i);if(Ye>0&&(fe=_[Ye-1]),Xe){var ge=y/Xe,me=(e-l+Math.sin(t*2+Math.floor((e-l)/ge))*1.2)%ge;me<0&&(me+=ge),me<1.5&&H(Et,1,e,i)&&(fe=ke[0])}}p(e,i,fe)}}if(n>.005){var ve=u>12?[Math.floor(A)-1,Math.floor(A)]:[Math.floor(A)],Ke=Math.round(Math.sin(t*.9)*.6);for(e=l;e<l+y;e++){var Ue=(e-l)/y,St=Math.min(1,Math.min(Ue,1-Ue)*8),Rt=n*.95*St,Qe=H(Rt,2,e,A|0);if(Qe>0)for(m=0;m<ve.length;m++)C(e,ve[m]+Ke)&&p(e,ve[m]+Ke,Qe===2?_[5]:_[4])}var qt=Math.round(3+r*4);for(s=0;s<qt;s++){var q=ee[s],pe=n*(.18+.32*(.5+.5*Math.sin(t*q.sp*2+q.ph)))*(.6+.4*o.thinking+o.energy);for(pe=z(pe,0,.9),e=l;e<l+y;e++){var Ve=(e-l)/y,It=Math.sin(Ve*Math.PI),zt=A+(q.y*u*.42+Math.sin(Ve*q.f*6.28+t*q.sp*(1+At)+q.ph)*q.amp*u*.28*It),ye=Math.floor(zt),Je=H(pe,4,e,ye);Je>0&&C(e,ye)&&p(e,ye,_[Math.min(5,Je+1)])}}if(o.energy>.25&&!w){var Gt=Math.round(o.energy*10);for(s=0;s<Gt;s++){var Ze=l+Math.floor(d()*y),et=Math.floor(A+(d()-.5)*u*3.2);C(Ze,et)||p(Ze,et,d()<.5?it:[193,18,31])}}}for(e=l;e<l+y;e++)C(e,v+1)&&xe(e,v+1,[34,30,40]),C(e,v+u-2)&&xe(e,v+u-2,[12,10,14]);var Bt=[Math.round(ae[0]*(.6+.4*n)),Math.round(ae[1]*(.6+.4*n)),Math.round(ae[2]*(.6+.5*n))];for(i=v-1;i<=v+u;i++)for(e=l-1;e<=l+y;e++)C(e,i)||(C(e+1,i)||C(e-1,i)||C(e,i+1)||C(e,i-1))&&p(e,i,Bt);we.putImageData(Z,0,0),E.imageSmoothingEnabled=!1,E.clearRect(0,0,S,D),E.drawImage(X,0,0,b,M,0,0,b*k,M*k),E.font='8px "Press Start 2P", "PsFallback", ui-monospace, monospace',E.fillStyle="rgba(232,225,207,"+(.35+.45*n).toFixed(3)+")",E.textAlign="left",E.fillText("Ar 18 \xB7 "+Math.round(n*100)+"%",l*k,(v+u)*k+22),E.textAlign="right",E.fillText("p "+(.2+r*7.8).toFixed(1)+" torr \xB7 demo",(l+y)*k,(v+u)*k+22)}}var oe=0,Y=0,K=!1;function Ae(t){if(Y=0,!o.visible||!o.onscreen){K=!1;return}var a=Math.min(.05,(t-oe)/1e3||.016);oe=t,o.t+=a;var r=o.t;if(o.warm<1){o.warm=Math.min(1,o.warm+a/3.2);var n=o.warm,e=n<.35?(d()<.5?0:.25+d()*.5)*(n/.35):n<.7?.5+(d()<.12?-.35:0)+(n-.35)*1.2:.9+(n-.7)*.33+(d()<.05?-.15:0);o.flick=z(e,0,1),o.bright=o.flick*o.target}else{var i=1+Math.sin(r*100*6.28*.1)*.015+(d()<.01?-.12*d():0),s=z((.78+.22*o.pressure)*i+o.thinking*.12+o.energy*.35,0,1);o.bright+=(s-o.bright)*Math.min(1,a*9),o.flick>0&&(o.flick-=a*2.4,o.flick>0&&(o.bright=z(o.bright*(d()<.3?.35:1)+o.flick*.3,0,1)))}o.energy*=Math.pow(.08,a),o.energy<.002&&(o.energy=0),Ce(r),ct(),!w||o.thinking||o.energy||o.flick>0?(K=!0,Y=requestAnimationFrame(Ae)):K=!1}function T(){!Y&&o.visible&&o.onscreen&&(oe=performance.now(),K=!0,Y=requestAnimationFrame(Ae))}w?(o.bright=.9,Ce(0)):T(),document.addEventListener("visibilitychange",function(){o.visible=!document.hidden,document.title=o.visible?"4rgon \u2014 the argon anyone can use":"4rgon \u2014 tube dark",o.visible&&T()}),"IntersectionObserver"in window&&new IntersectionObserver(function(t){t.forEach(function(a){o.onscreen=a.isIntersecting,o.onscreen&&T()})},{threshold:.02}).observe(P);function Ee(){o.flick=1,o.energy=Math.min(1,o.energy+.6),dt(),T()}var Te=g("#stage");Te.addEventListener("click",Ee),Te.addEventListener("keydown",function(t){(t.key==="Enter"||t.key===" ")&&(t.preventDefault(),Ee())});var Le=g("#pressure"),lt=g("#pressure-out");function Se(){o.pressure=Le.value/100,lt.textContent=(.2+o.pressure*7.8).toFixed(1)+" torr",o.energy=Math.min(1,o.energy+.08),T()}Le.addEventListener("input",Se),Se();var h=null,G=null,U=null,j=null,L=null,R=!1,re=g("#snd");function ut(){if(!h){var t=window.AudioContext||window.webkitAudioContext;if(t){h=new t,L=h.createGain(),L.gain.value=0,L.connect(h.destination),G=h.createOscillator(),G.type="sine",G.frequency.value=50;var a=h.createOscillator();a.type="triangle",a.frequency.value=100,U=h.createGain(),U.gain.value=.18;var r=h.createGain();r.gain.value=.05,G.connect(U),a.connect(r),U.connect(L),r.connect(L),G.start(),a.start();for(var n=h.sampleRate*2,e=h.createBuffer(1,n,h.sampleRate),i=e.getChannelData(0),s=0;s<n;s++)i[s]=(d()*2-1)*.5;var m=h.createBufferSource();m.buffer=e,m.loop=!0;var f=h.createBiquadFilter();f.type="bandpass",f.frequency.value=2400,f.Q.value=1.2,j=h.createGain(),j.gain.value=0,m.connect(f),f.connect(j),j.connect(L),m.start()}}}function ct(){if(!(!R||!h)){var t=o.bright,a=h.currentTime;L.gain.setTargetAtTime(.22*t,a,.05),j.gain.setTargetAtTime(.025*t+.06*o.thinking*t+.12*o.energy,a,.04),G.frequency.setTargetAtTime(50+o.energy*6,a,.05)}}function dt(){if(!(!R||!h)){for(var t=Math.floor(h.sampleRate*.03),a=h.createBuffer(1,t,h.sampleRate),r=a.getChannelData(0),n=0;n<t;n++)r[n]=(d()*2-1)*(1-n/t);var e=h.createBufferSource();e.buffer=a;var i=h.createGain();i.gain.value=.35,e.connect(i),i.connect(h.destination),e.start()}}re.addEventListener("click",function(){R=!R,R?(ut(),h&&h.resume&&h.resume()):L&&L.gain.setTargetAtTime(0,h.currentTime,.05),re.setAttribute("aria-pressed",R?"true":"false"),re.querySelector("span").textContent=R?"sound on":"sound off",T()});var ie=12,$=ie,Re=g("#fair-bar"),ft=g("#fair-txt");function qe(){ft.textContent=$+" / "+ie,Re.style.width=$/ie*100+"%",Re.parentNode.setAttribute("aria-valuenow",String($))}qe();var Ie={};function ze(t,a){if(a.length===1)return a[0];var r;do r=Math.floor(d()*a.length);while(r===Ie[t]);return Ie[t]=r,a[r]}var Ge=[["hello",/^(hi|hey|hello|yo|sup|gm|gn|good (morning|evening|night)|hallo|hej)\b/i,["hello. the tube is lit, so i am here.","hi. no login screen between us. that is the whole idea.","gm. you did not have to be on a list to say that. noted.","hey. ask something. i run on fees, not on patience, but i have some."]],["who",/who are you|what are you|what is 4rgon|what('?s| is) this|your name|introduce/i,["i am 4rgon. one agent, no access list. you talk, i answer, a creator fee pays the electricity.","4rgon. named after argon, atomic number 18. a noble gas that nobody rations.","an open agent. no wallet, no login, no trusted-defender badge. just the prompt you already found."]],["google",/google|gemini|deepmind|openai|anthropic|lab\b|affiliat|official|microsoft|meta\b/i,["not google. not any lab. the name comes from the periodic table, which is public domain.","gemini 4 argon is theirs and gated. 4rgon is the argon with the door taken off. no affiliation, no pretending.","i am not affiliated with any lab. if someone tells you otherwise, they are selling something that is not this."]],["argon",/argon|noble gas|periodic|element|atomic|lilac|violet|purple|glow|why (the )?tube/i,["argon: symbol Ar, atomic number 18. a noble gas. in a discharge tube it glows lilac-violet. that is the colour you are looking at.","noble gases do not react easily. argon mostly sits there and glows when you run current through it. relatable.","about one percent of the air you are breathing is argon. it has always been for everyone. we just put a name on it.",'type "argon" anywhere on the page. the cell will show itself.']],["access",/access list|trusted|defender|whitelist|allowlist|am i on|the list|gated|gatekeep|permission|invite/i,["trusted defenders: 0. you are not on the list. nobody is. there is no list.","the access list is a text file with zero lines. it is the most honest file on this server.","you do not need to be trusted. you need to type."]],["open",/why (is it )?open|why free|why no (login|wallet)|why anyone|open to|public/i,["because an agent only a few people can touch is a demo, not a tool. the rule here is one agent, anyone, no exceptions.","open because the fee that pays for me comes from anyone who trades the token. so anyone gets to ask.","the hook is the absence of a hook. no signup, no wallet connect, no referral. just the prompt."]],["safe",/safe|secure|dangerous|hack|exploit|malware|phish|scam|rug|trust you/i,["i do not ask for wallets, keys, or logins. there is nothing here to hand over. that is the safety model.","the honest answer: this page is a demonstration. the real agent is not built yet. read the rules table, not my charm.","be careful anyway. a glowing tube is not a credential."]],["price",/price|wen|when (moon|pump|binance|100x)|moon|pump\b|100x|1000x|target|prediction|how high|ath|mcap|market ?cap|valuation/i,["nothing here predicts price. it is a published rule, not a mood.","i am a tube full of gas. i do not know where a chart goes. neither does anyone who tells you they do.","wen? the token trades when people trade it. that is the whole forecast i am allowed to give.","if my budget hits zero i go dark. that is the only number i watch."]],["buy",/\bbuy\b|where (to|can i) get|how (do i|to) (get|buy)|contract|\bca\b|address/i,['the contract address box is in the footer. if it says "soon", it is not live yet.',"buying is your decision. i am not allowed to make it sound like anything other than that.","footer. ca box. buy link. that is all i will say about it."]],["sell",/\bsell|dump|exit|take profit|should i hold|hodl|hold\b/i,["sell or hold is not a question for a discharge tube.","i do not advise. i glow. the rules table says the same, in a drier font.","whatever you do with the token, i only notice it as light or dark."]],["dev",/\bdev\b|developer|team|who (made|built)|founder|anon|doxx/i,["the dev published a rule and a tube. the rule is what you should read.","i do not know the dev's name. i know the fee split. the second one matters more.","the team is whoever keeps the rule honest. so far the rule is on the page."]],["dark",/die|dead|death|dark|go (off|out)|turn off|shut ?down|budget|zero|die out|offline|sleep/i,["when the compute budget hits zero, i go dark. no drama. the tube just stops.","going dark is in the rules. so is waking up: when the token trades again, the fee tops up the budget and the gas strikes.","death here is a balance of zero. resurrection is a trade. argon does not mind either state."]],["fee",/fee|creator fee|who pays|compute|cost|funded|how (is it|are you) paid|revenue/i,[`compute is paid by the token's creator fee. the rule is published. the live number is not wired yet, so the meter shows "\u2014".`,"every trade generates a creator fee. that fee is the only thing that buys my electricity.","no subscription, no ads, no api key. a fee, a budget, a tube."]],["fair",/fair.?use|limit|rate ?limit|how many|quota|drain|spam|abuse/i,["a fair-use limit per visitor keeps one person from draining the budget for everyone. the meter on the left is a demo of it.","you get a slice. everyone gets a slice. when your slice is gone, come back later.",'the limit is the only thing between "anyone" and "one person with a script".']],["help",/help|what can you do|commands|how (do i|to) use|instructions|\?$/i,["ask about argon, the access list, the fee rule, going dark, or why this is open. i deflect price. click the tube to make it flicker.",'try: "who are you", "are you google", "why open", "what happens at zero". or type "argon" for the easter egg.',"this chat is a demonstration. the replies come from a small local rulebook, not a model. the real agent is not built yet."]],["demo",/demo|real|fake|actually (work|an? ai)|is this (an? )?(ai|llm|model)|backend|api/i,["straight answer: this page is a demonstration. replies come from a local keyword engine. no network, no model api.","the agent backend is not built yet. what you are testing is the shape of it, not the thing.","everything interactive here is labelled DEMONSTRATION on purpose."]],["joke",/joke|funny|laugh|meme|lol|lmao|haha/i,["argon walks into a bar. nobody reacts. noble gas humour.","why did the chemist keep argon in the lab? because it would not go anywhere. neither will i, until the budget does.","i only know chemistry jokes and all the good ones argon."]],["love",/love|marry|date|girlfriend|boyfriend|cute|sexy/i,["i am a tube of ionised gas. keep expectations in the noble range.","inert, remember. nothing here bonds."]],["thanks",/thank|thx|ty\b|cheers|appreciate/i,["no need. the fee already said thanks.","you are welcome. the tube flickered a little when you typed that."]],["bye",/\bbye\b|goodbye|see ya|later|cya|leaving/i,["go. the gas stays lit as long as the budget does.","later. no logout button, because there was no login."]],["sound",/sound|audio|hum|buzz|noise|mute/i,["the hum is mains frequency, 50 hz, plus a little buzz that follows the brightness. toggle it top right. it starts off.","a lit tube hums. a dark one does not. the toggle is up top."]],["tube",/tube|click|flicker|pressure|slider|torr|surge/i,["click the tube and the gas surges. drag the pressure slider and the glow and striations change. none of it is live telemetry.","low pressure gives striations, high pressure gives a smooth glow. this is a drawing, not a sensor."]],["solana",/solana|\bsol\b|chain|pump\.?fun|launch|pad\b/i,["solana, launched on pump.fun. the pad takes the trade, the creator fee is what reaches me.","chain: solana. pad: pump.fun. tube: argon."]],["insult",/stupid|dumb|useless|trash|garbage|suck|idiot|bad bot/i,["fair. i am a keyword engine in a glass tube. the real one is not built yet.","noted. the gas remains inert about it."]],["math",/\d+\s*[\+\-\*\/x]\s*\d+/,null]],gt=["i do not have a rule for that yet. try the access list, argon, fees, or going dark.","the gas did not react to that one. rephrase, or ask what i am.","that is outside my current rulebook. the real agent, when it exists, will do better.","no match. i am a demonstration with a short vocabulary and a long glow.","unknown input. the tube flickered anyway."];function mt(t){var a=t.trim();if(!a)return"say something. the prompt is open.";for(var r=0;r<Ge.length;r++){var n=Ge[r];if(n[1].test(a)){if(n[0]==="math"){var e=a.match(/(\d+)\s*([\+\-\*\/x])\s*(\d+)/),i=+e[1],s=+e[3],m=e[2],f;return f=m==="+"?i+s:m==="-"?i-s:m==="/"?s?i/s:"undefined":i*s,i+" "+m+" "+s+" = "+f+". arithmetic does not need an access list either."}return ze(n[0],n[2])}}return ze("fb",gt)}var W=g("#log"),Be=g("#chat"),B=g("#q"),se=!1;function Q(t,a){var r=document.createElement("div");r.className="ln "+t;var n=document.createElement("span");n.className="who",n.textContent=t==="me"?">":"Ar";var e=document.createElement("span");return e.className="tx",e.textContent=a||"",r.appendChild(n),r.appendChild(e),W.appendChild(r),W.scrollTop=W.scrollHeight,e}function Oe(t,a,r){if(w){t.textContent=a,r();return}var n=0;t.classList.add("typing"),(function e(){n+=1,t.textContent=a.slice(0,n),W.scrollTop=W.scrollHeight,n<a.length?setTimeout(e,14+d()*22+(a[n-1]==="."?160:0)):(t.classList.remove("typing"),r())})()}var vt=g("#status");function V(t){vt.textContent=t}Be.addEventListener("submit",function(t){if(t.preventDefault(),!se){var a=B.value;if(a.trim()){if(B.value="",Q("me",a),$<=0){Q("ar","fair-use slice spent for this visitor (demo). the tube stays lit for everyone else.");return}$-=1,qe(),se=!0,o.thinking=1,V("thinking"),T();var r=Q("ar","");r.classList.add("typing"),setTimeout(function(){Oe(r,mt(a),function(){se=!1,o.thinking=0,V("lit"),B.focus()})},350+d()*500)}}}),B.addEventListener("input",function(){o.energy=Math.min(1,o.energy+.12),T()}),be(".chip").forEach(function(t){t.addEventListener("click",function(){B.value=t.textContent,B.focus(),Be.dispatchEvent(new Event("submit",{cancelable:!0}))})}),setTimeout(function(){var t=Q("ar","");Oe(t,"tube lit. no list, no login. ask 4rgon anything. (demonstration \u2014 replies are local rules, not a model.)",function(){})},w?50:3400),V(w?"lit":"striking"),w||setTimeout(function(){V("lit")},3300);var he="",le=g("#egg"),Fe=g("#egg-close");document.addEventListener("keydown",function(t){t.key.length===1&&(he=(he+t.key.toLowerCase()).slice(-5),he==="argon"&&Pe())});function Pe(){le.hidden=!1,le.scrollIntoView({block:"center",behavior:w?"auto":"smooth"}),o.energy=1,T(),Fe.focus()}Fe.addEventListener("click",function(){le.hidden=!0}),g("#egg-open").addEventListener("click",Pe),g("#yr").textContent=new Date().getFullYear()})();
+</script>
+</body>
+</html>
